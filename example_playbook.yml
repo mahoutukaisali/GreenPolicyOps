@@ -1,0 +1,14 @@
+---
+- name: Set up MySQL
+  hosts: localhost
+  gather_facts: false
+  become: True
+  vars:
+    package_list:
+      - unauthorized-app
+  tasks:
+    - name: Install Unauthorized App
+      become: true
+      ansible.builtin.package:
+        name: "{{ package_list }}"
+        state: present
