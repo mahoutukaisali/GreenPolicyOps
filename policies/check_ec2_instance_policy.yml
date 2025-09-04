@@ -1,0 +1,20 @@
+---
+- name: Check for ec2 instances types before deploy
+  hosts: localhost
+  vars:
+    not_allowed_instances:
+      - "t1.micro"
+      - "m1.small"
+      - "m1.medium"
+  policies:
+    - name: Deny inefficient instance types
+      description: Enforce the use of energy-efficient instance types. Prevent usage of legacy/inefficient instance types.
+      target: task
+      condition: input["amazon.aws.ec2_instance"].instance_type in not_allowed_instances
+      #input.action.args.instance_type in not_allowed_instances
+      #input["amazon.aws.ec2_instance"].instance_type in not_allowed_instances
+      actions:
+        - deny:
+            msg: input.amazon.aws.ec2_instance
+            #msg: The selected instance type {{ input["amazon.aws.ec2_instance"].instance_type }} is deprecated and energy inefficient.
+      tags: compliance

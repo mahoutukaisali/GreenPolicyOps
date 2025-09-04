@@ -894,6 +894,7 @@ class ResultFormatter(object):
                             "action_type": t.action_type,
                         }
                         not_validated_targets.append(detail)
+        print(not_validated_targets)
         headers = []
         violation_per_type = {}
         warning_per_type = {}

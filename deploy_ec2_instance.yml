@@ -1,0 +1,25 @@
+---
+- name: Provision EC2 instance on AWS
+  hosts: localhost
+  gather_facts: false
+  vars:
+    region: "your_aws_region"
+    instance_type: "t1.micro"
+    ami_id: "your_ami_id"
+    key_name: "your_key_name"
+    security_group: "your_security_group_id"
+    subnet_id: "your_subnet_id"
+  tasks:
+    - name: Create EC2 instance
+      amazon.aws.ec2_instance:
+        region: "{{ region }}"
+        key_name: "{{ key_name }}"
+        instance_type: "t1.micro" #<---due to a bug, directly inputting a parameter
+        security_group: "{{ security_group }}"
+        subnet_id: "{{ subnet_id }}"
+        assign_public_ip: true
+        wait: yes
+        count: 1
+        instance_tags:
+          Name: "MySQLInstance"
+      register: ec2

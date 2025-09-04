@@ -1,0 +1,2 @@
+
+playbook: deploy_ec2_instance.yml

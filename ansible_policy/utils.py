@@ -75,6 +75,7 @@ def eval_opa_policy(rego_path: str, input_data: str, external_data_path: str, ex
         stderr=subprocess.PIPE,
         text=True,
     )
+    logger.debug(input)
     logger.debug(f"command: {cmd_str}")
     logger.debug(f"proc.input_data: {input_data}")
     logger.debug(f"proc.stdout: {proc.stdout}")
